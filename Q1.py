@@ -41,8 +41,8 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 st.header('Data Filtering')
 
 # Filtering options
-price_range = st.slider('Select Price Range', min_value=data['GoldPrice'].min(),
-                        max_value=data['GoldPrice'].max(), value=(data['GoldPrice'].min(), data['GoldPrice'].max()))
+price_range = st.slider('Select Price Range', min_value=float(data['GoldPrice'].min()),
+                        max_value=float(data['GoldPrice'].max()), value=(float(data['GoldPrice'].min()), float(data['GoldPrice'].max())))
 
 filtered_data = data[(data['GoldPrice'].between(price_range[0], price_range[1]))]
 
