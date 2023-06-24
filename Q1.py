@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import warnings
+warnings.filterwarnings('ignore')
 data = pd.read_csv('EDA_Gold_Silver_prices.csv')
 
 # Set page configuration
