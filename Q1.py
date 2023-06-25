@@ -5,6 +5,10 @@ import seaborn as sns
 import warnings
 warnings.filterwarnings('ignore')
 data = pd.read_csv('EDA_Gold_Silver_prices.csv')
+data_view = data[['SilverPrice','GoldPrice']]
+data_view['SilverPrice'] = data_view['SilverPrice'].round(2).astype(str) + ' INR'
+data_view['GoldPrice'] = data_view['GoldPrice'].round(2).astype(str) + ' INR'
+
 
 # Set page configuration
 st.set_page_config(page_title='Gold and Silver Prices EDA', layout='wide')
@@ -12,10 +16,10 @@ st.set_page_config(page_title='Gold and Silver Prices EDA', layout='wide')
 # Display the dataset and summary statistics
 st.title('Gold and Silver Prices in Indian Currency')
 st.header('Analysis for Applied Materials - By Tanmay Ghosh')
-st.dataframe(data)
+st.dataframe(data_view)
 
 st.subheader('Summary Statistics')
-st.write(data.describe())
+st.write(data.describe().round(2))
 
 # Perform exploratory data analysis
 st.header('Exploratory Data Analysis')
