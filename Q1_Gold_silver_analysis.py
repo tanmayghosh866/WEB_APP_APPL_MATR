@@ -119,7 +119,7 @@ if st.button('Correlation Matrix'):
         st.write(correlation_matrix)
 
 ## PER KILO ANALYSIS
-st.header('Analysis for Per Kilo price for gold and silver')
+st.header('Analysis for Per Average Kilo price for gold and silver')
 data_kg = pd.read_csv('EDA_Gold_Silver_prices.csv')
 data_kg['Month'] = pd.to_datetime(data_kg['Month'], errors='coerce').dt.month
 data_kg[['SilverPrice','GoldPrice']] = data_kg[['SilverPrice','GoldPrice']].apply(lambda x :(1000/31.8)* x, axis=1)
@@ -173,7 +173,7 @@ if st.button('Group by Month (Per Kilo)'):
     # Top 5 Months of Gold Price per KG
     top_5_month_gold = grouped_data.nlargest(5, 'GoldPrice')
     sns.barplot(data=top_5_month_gold, x='Month_Name', y='GoldPrice', ax=axes[0])
-    axes[0].set_title('Top 5 Months of Gold Price Pwr KG')
+    axes[0].set_title('Top 5 Months of Gold Price per KG')
     axes[0].set_xlabel('Month')
     axes[0].set_ylabel('Gold Price')
 
@@ -193,4 +193,4 @@ if st.button('Correlation Matrix Per Kilo'):
         correlation_matrix = grouped_data[['GoldPrice', 'SilverPrice']].corr()
         st.subheader('Correlation Matrix per Kilo')
         st.write(correlation_matrix)
-
+st.header('ANALYSIS ENDS HERE _ END OF FILE _ TANMAY GHOSH')
