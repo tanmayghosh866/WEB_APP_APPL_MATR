@@ -117,10 +117,7 @@ if st.button('Group by Month'):
     grouped_data['SilverPrice'] = grouped_data['SilverPrice'].astype(str) + ' INR'
     grouped_data['GoldPrice'] = grouped_data['GoldPrice'].astype(str) + ' INR'
     st.subheader('Grouped Data by Month - prices in each month across years averages')
-    st.write(grouped_data)
-    
-    
-    
+    st.write(grouped_data)   
 if st.button('Correlation Matrix'):
         data['Month'] = pd.to_datetime(data['Month'], errors='coerce').dt.month
         grouped_data = data.groupby('Month').mean()
