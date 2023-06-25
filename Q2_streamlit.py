@@ -6,6 +6,7 @@ from datetime import datetime, date
 
 # Read the data from the Excel file
 df_total = pd.read_csv('currencies.csv')
+df_total = df_total.fillna(df_total.mean(axis=0))
 df_min = df_total[['ID','Date','Day','Euro','Japanese Yen','U.K. Pound Sterling','U.S. Dollar','Chinese Yuan','Australian Dollar','Indian Rupee']]
 df_min.to_excel('df.xlsx', index=False)
 global df
