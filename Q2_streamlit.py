@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
 from datetime import datetime, date
 
 # Read the data from the Excel file
@@ -244,3 +245,16 @@ if Show_Graph:
             st.pyplot(fig)
     else:
             pass
+st.markdown('#### View heatmap on Currency Correlation')
+if st.button('Correlation Matrix'):
+        data = pd.read_excel('df.xlsx')
+        corr_data = data.iloc[:, 3 :]
+        correlation_matrix = corr_data.corr().round(2)
+        st.subheader('Correlation Matrix')
+        fig, ax = plt.subplots(figsize=(8, 6))
+        sns.heatmap(correlation_matrix, annot=True, cmap='coolwarm', linewidths=0.5)
+        plt.title('Correlation Heatmap')
+        plt.xlabel('Columns')
+        plt.ylabel('Columns')
+        st.pyplot(fig)
+        st.dataframe(correlation_matrix)
