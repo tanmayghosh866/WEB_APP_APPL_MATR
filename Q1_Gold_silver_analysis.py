@@ -12,6 +12,7 @@ data_view['GoldPrice'] = data_view['GoldPrice'].round(2).astype(str) + ' INR'
 
 # Set page configuration
 st.set_page_config(page_title='Gold and Silver Prices EDA', layout='wide')
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Display the dataset and summary statistics
 st.title('Gold and Silver Prices in Indian Currency')
