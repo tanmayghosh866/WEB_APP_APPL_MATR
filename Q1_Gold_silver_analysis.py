@@ -19,10 +19,14 @@ st.title('Gold and Silver Prices in Indian Currency')
 st.header('Analysis for Applied Materials - By Tanmay Ghosh')
 st.markdown('#### Assumption - Data provided are prices for per 31.8 grams')
 st.markdown('#### PER TROY OUNCE ANALYSIS BELOW - 31.8 grams')
-st.dataframe(data_view)
+col1, col2 = st.columns(2)
+with col1:
+    st.write("Per Troy Ounce Data")
+    st.write(data_view)
 
-st.subheader('Summary Statistics')
-st.write(data.describe().round(2))
+with col2:
+    st.write("Describe data")
+    st.dataframe(data.describe().round(2))
 
 # Perform exploratory data analysis
 st.header('Exploratory Data Analysis')
