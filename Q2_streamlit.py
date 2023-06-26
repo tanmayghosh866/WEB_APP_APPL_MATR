@@ -55,7 +55,7 @@ def add_row(values):
     update_excel()
 
 # Streamlit layout
-st.title('Currency Analysis For Applied Materials')
+st.title('Currency Analysis For App Mat')
 st.header('By Tanmay Ghosh')
 
 row_input = st.text_input('Select Row (ID)', value='', key='row_input', type='default')
