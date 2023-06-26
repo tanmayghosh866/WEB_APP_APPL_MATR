@@ -16,7 +16,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Display the dataset and summary statistics
 st.title('Gold and Silver Prices in Indian Currency')
-st.header('Analysis for App Mat - By Tanmay Ghosh')
+st.header('Analysis App - By Tanmay Ghosh')
 st.markdown('#### Assumption - Data provided are prices for per 31.8 grams')
 st.markdown('#### PER TROY OUNCE ANALYSIS BELOW - 31.8 grams')
 col1, col2 = st.columns(2)
