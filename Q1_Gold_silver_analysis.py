@@ -16,7 +16,7 @@ st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Display the dataset and summary statistics
 st.title('Gold and Silver Prices in Indian Currency')
-st.header('Analysis App - By Tanmay Ghosh')
+st.header('Analysis for Applied Materials - By Tanmay Ghosh')
 st.markdown('#### Assumption - Data provided are prices for per 31.8 grams')
 st.markdown('#### PER TROY OUNCE ANALYSIS BELOW - 31.8 grams')
 col1, col2 = st.columns(2)
@@ -62,6 +62,122 @@ with col1:
 with col2:
     st.write("Describe data")
     st.dataframe(desc_fil_data)
+
+st.header("Analysis By Year")
+df  = pd.read_csv("EDA_Gold_Silver_prices.csv")
+df['Year'] = pd.to_datetime(df['Month']).dt.year
+Year = st.selectbox('Select Year',
+                        options=list(range(int(df['Year'].min()), int(df['Year'].max()+1))),
+                        index=0)
+if st.button("Group By Year") :
+    df  = pd.read_csv("EDA_Gold_Silver_prices.csv")
+    df['Year'] = pd.to_datetime(df['Month']).dt.year
+    df['Month'] = pd.to_datetime(df['Month']).dt.month
+    df['Month'] = df['Month'].round(0).astype(str)
+    df['Gold_PK'] = df[['GoldPrice']].apply(lambda x : (df['GoldPrice']/31.8)*1000).round(2)
+    df['Silver_PK'] = df[['SilverPrice']].apply(lambda x : (df['SilverPrice']/31.8)*1000).round(2)
+    st.dataframe(df)
+    filtered_data = df[df['Year']== Year]
+    desc_fil_data = filtered_data.describe()
+   
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.write("Filtered Data")
+        st.dataframe(filtered_data)
+
+    with col2:
+        st.write("Describe Yearly filtered data")
+        st.dataframe(desc_fil_data)
+    with col3:
+        st.write("Main Data (All years)")
+        st.dataframe(df.describe())
+    grouped_data = df.groupby(['Year','Month']).mean().round(2).reset_index()
+    Month_Name = []
+    for i in range(grouped_data.shape[0]):
+        month_num = grouped_data['Month'][i]
+        if month_num == '1':
+            res = 'January'
+        elif month_num == '2':
+            res = 'February'
+        elif month_num == '3':
+            res = 'March'
+        elif month_num == '4':
+            res = 'April'
+        elif month_num == '5':
+            res = 'May'
+        elif month_num == '6':
+            res = 'June'
+        elif month_num == '7':
+            res = 'July'
+        elif month_num == '8':
+            res = 'August'
+        elif month_num == '9':
+            res = 'September'
+        elif month_num == '10':
+            res = 'October'
+        elif month_num == '11':
+            res = 'November'
+        elif month_num == '12':
+            res = 'December'
+        else:
+            res = 'Multiple Months Data'
+        Month_Name.append(res)
+
+    grouped_data['Month_Name'] = Month_Name
+    st.markdown('##### Top Gold and Silver Prices Year (Per Troy Ounce)')
+    
+    fig, axes = plt.subplots(1, 2, figsize=(15, 6))
+
+    grouped_data_viz = df.groupby('Year').mean().round(2).reset_index()
+    top_2_year_gold = grouped_data_viz.nlargest(2, 'GoldPrice')
+    sns.barplot(data=top_2_year_gold, x='Year', y='GoldPrice', ax=axes[0])
+    axes[0].set_title('Top 2 Year of Gold Price Per Troy Ounce')
+    axes[0].set_xlabel('Year')
+    axes[0].set_ylabel('Gold Price')
+
+ 
+    top_5_month_silver = grouped_data_viz.nsmallest(2, 'SilverPrice')
+    sns.barplot(data=top_5_month_silver, x='Year', y='SilverPrice', ax=axes[1])
+    axes[1].set_title('Top 2 Year of Silver Price per Troy Ounce')
+    axes[1].set_xlabel('Year')
+    axes[1].set_ylabel('Silver Price')
+    plt.tight_layout()
+    st.pyplot(fig)
+
+    grouped_data['SilverPrice'] = grouped_data['SilverPrice'].astype(str) + ' INR'
+    grouped_data['GoldPrice'] = grouped_data['GoldPrice'].astype(str) + ' INR'
+    grouped_data['Gold_PK'] = grouped_data['Gold_PK'].astype(str) + ' INR'
+    grouped_data['Silver_PK'] = grouped_data['Silver_PK'].astype(str) + ' INR'
+    st.subheader('Grouped Data by Year - prices in each Year averages - troy ounce and per KG')
+    col1, col2 = st.columns(2)
+    with col1:
+        st.dataframe(grouped_data)
+    with col2:
+        st.dataframe(grouped_data_viz)
+    
+    grouped_data = df.groupby('Year').mean().round(2).reset_index()
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.fill_between(grouped_data['Year'], grouped_data['GoldPrice'], color='gold', alpha=0.5, label='Yearly Gold Price')
+    ax.fill_between(grouped_data['Year'], grouped_data['SilverPrice'], color='black', alpha=0.5, label='Yearly Silver Price')
+    ax.fill_between(grouped_data['Year'], grouped_data['Gold_PK'], color='red', alpha=0.5, label='Per Troy Ounce Gold Price')
+    ax.fill_between(grouped_data['Year'], grouped_data['Silver_PK'], color='green', alpha=0.5, label='Per Troy Ounce Silver Price')
+    ax.set_xlabel('Year')
+    ax.set_ylabel('Average Price')
+    ax.set_title('Yearly Average Prices of Gold and Silver')
+    ax.legend()
+    st.pyplot(fig)
+
+
+## PER KILO ANALYSIS
+st.header('Analysis for Per Kilo price for gold and silver')
+data_kg = pd.read_csv('EDA_Gold_Silver_prices.csv')
+data_kg['Month'] = pd.to_datetime(data_kg['Month'], errors='coerce').dt.month
+data_kg[['SilverPrice','GoldPrice']] = data_kg[['SilverPrice','GoldPrice']].apply(lambda x :(1000/31.8)* x, axis=1)
+data_kg_view = data_kg.copy()
+data_kg_view['SilverPrice'] = data_kg_view['SilverPrice'].round(2).astype(str) + ' INR'
+data_kg_view['GoldPrice'] = data_kg_view['GoldPrice'].round(2).astype(str) + ' INR'
+st.dataframe(data_kg_view)
+
 
 if st.button('Group by Month'):
     data['Month'] = pd.to_datetime(data['Month'], errors='coerce').dt.month  # Extract month from date
@@ -185,7 +301,7 @@ if st.button('Group by Month (Per Kilo)'):
     # Top 5 Months of Gold Price per KG
     top_5_month_gold = grouped_data.nlargest(5, 'GoldPrice')
     sns.barplot(data=top_5_month_gold, x='Month_Name', y='GoldPrice', ax=axes[0])
-    axes[0].set_title('Top 5 Months of Gold Price Per KG')
+    axes[0].set_title('Top 5 Months of Gold Price Pwr KG')
     axes[0].set_xlabel('Month')
     axes[0].set_ylabel('Gold Price')
 
