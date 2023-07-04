@@ -301,7 +301,7 @@ if st.button('Group by Month (Per Kilo)'):
     # Top 5 Months of Gold Price per KG
     top_5_month_gold = grouped_data.nlargest(5, 'GoldPrice')
     sns.barplot(data=top_5_month_gold, x='Month_Name', y='GoldPrice', ax=axes[0])
-    axes[0].set_title('Top 5 Months of Gold Price Pwr KG')
+    axes[0].set_title('Top 5 Months of Gold Price Per KG')
     axes[0].set_xlabel('Month')
     axes[0].set_ylabel('Gold Price')
 
