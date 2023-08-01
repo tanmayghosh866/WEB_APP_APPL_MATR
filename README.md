@@ -5,11 +5,11 @@ Q1 - Gold and silver prices EDA :
    part 1 - Dashboard built on Excel - uploaded on Github repo - Q1_EDA_AM_dashboard.xlsx
    
    part 2 - Web App built on Python based on Streamlit cloud - git hub repo :
-   - https://tanmayghosh866-web-app-appl-matr-q1-gold-silver-analysis-3aafm5.streamlit.app/
+   - https://tanmayghosh866-web-app-appl-matr-q1-gold-silver-analysis-3aafm5.streamlit.app/ --- **APP ARCHIVED/UNLOADED FROM CLOUD**
 
 Q2 - Currency Analysis :
    part 1 - Web app using python and streamlit for Currency analysis :
-   - https://tanmayghosh866-web-app-appl-matr-q2-streamlit-cin20r.streamlit.app/
+   - https://tanmayghosh866-web-app-appl-matr-q2-streamlit-cin20r.streamlit.app/ --- **APP ARCHIVED/UNLOADED FROM CLOUD**
                         
    part 2 - Excel based dashboarding and analysis - uploaded on Github repo - Q2_AM_Currency.xlsm :
                            1. Has ability to show, add/modify/update/delete or search any record with userform
