@@ -1,5 +1,5 @@
-# WEB_APP_APPL_MATR
-EDA web app for Applied materials using provided datasets
+# WEB_APP_SANITIZED
+EDA web app using provided datasets
 
 Q1 - Gold and silver prices EDA :
    part 1 - Dashboard built on Excel - uploaded on Github repo - Q1_EDA_AM_dashboard.xlsx
